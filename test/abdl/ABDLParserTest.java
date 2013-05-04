@@ -1,26 +1,71 @@
 package abdl;
 
-import static org.junit.Assert.fail;
-
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 
+import junit.framework.TestCase;
+
 import org.junit.Test;
 
-public class ABDLParserTest {
-	
-	@Test
-	public void test() {
-		fail("Not yet implemented");
+public class ABDLParserTest extends TestCase {
+
+	private Parser parser;
+
+	@Override
+	protected void setUp() throws Exception {
+		super.setUp();
+		parser = new Parser();
 	}
-	
-	public List<File> getFiles(String dir){
+
+	@Test
+	public void testCorrectTests() {
+		boolean fail = false;
+		for (File f : getFiles("test/correct/")) {
+			try {
+				assertTrue(parser.parse(f.toString()));
+				System.out.println("Correct: " + f.toString());
+			} catch (FileNotFoundException e) {
+				//e.printStackTrace();
+				System.out.println("File not found: " + f.toString());
+				fail = true;
+				//fail();
+			} catch (ParseException e1) {
+				System.out.println("Incorrect Parse: " + f.toString());
+				e1.printStackTrace();
+				fail = true;
+				//fail();
+			}
+		}
+		if (fail) fail();
+	}
+
+	@Test
+	public void testIncorrectTests() {
+		for (File f : getFiles("test/incorrect/")) {
+			try {
+				parser.parse(f.toString());
+				System.out.println("Fail, ParseException should be thrown: " + f.toString());
+				fail();
+			} catch (FileNotFoundException e) {
+				//e.printStackTrace();
+				System.out.println("File not found: incorrect\\" + f.toString());
+				fail();
+			} catch (ParseException e1) {
+				System.out.println("Correct: incorrect\\" + f.toString());
+				//e1.printStackTrace();
+				assertTrue(true);
+			}
+		}
+	}
+
+	private List<File> getFiles(String dir) {
 		List<File> files = new ArrayList<File>();
 		File folder = new File(dir);
-		
-		for (File f : folder.listFiles()){
-			if (f.isFile()){
+
+		for (File f : folder.listFiles()) {
+			if (f.isFile()) {
 				files.add(f);
 			}
 		}

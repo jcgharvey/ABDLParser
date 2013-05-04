@@ -5,21 +5,14 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 
 public class Parser {
-	public void parse(String filename) {
+	public boolean parse(String filename) throws FileNotFoundException,
+			ParseException {
 		FileInputStream is;
-		try {
-			is = new FileInputStream(new File(filename));
+		is = new FileInputStream(new File(filename));
 
-			ABDLParser parser = new ABDLParser(is);
-			try {
-				parser.AddressBook();
-				System.out.println("Input OK");
-			} catch (ParseException e) {
-				e.printStackTrace();
-			}
-		} catch (FileNotFoundException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
+		ABDLParser parser = new ABDLParser(is);
+
+		parser.AddressBook();
+		return true;
 	}
 }
