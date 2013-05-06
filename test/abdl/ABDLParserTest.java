@@ -54,6 +54,9 @@ public class ABDLParserTest extends TestCase {
 				System.out.println("Correct: incorrect\\" + f.toString());
 				//e1.printStackTrace();
 				assertTrue(true);
+			} catch (TokenMgrError e){
+				System.out.println("Incorrect(LEXICAL ERROR): incorrect\\" + f.toString());
+				assertTrue(true);
 			}
 		}
 	}

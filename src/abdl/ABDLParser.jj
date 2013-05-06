@@ -4,10 +4,10 @@
 
 public class ABDLParser{
   public static void main(String args []) throws ParseException  {    ABDLParser parser = new ABDLParser(System.in);    while (true)    {      System.out.println("Reading from standard input...");      System.out.print("Enter an expression like \"1+(2+3)*4;\" :");      try      {        switch (parser.AddressBook())        {          case 0 :           System.out.println("OK.");          break;          case 1 :           System.out.println("Goodbye.");          break;          default :           break;        }      }      catch (Exception e)      {        System.out.println("NOK.");        System.out.println(e.getMessage());        break;
-      }      catch (Error e)      {        System.out.println("Oops.");        System.out.println(e.getMessage());        break;      }    }  }}PARSER_END(ABDLParser)SKIP :{  " "| "\r"| "\t"| "\n"}
+      }      catch (Error e)      {        System.out.println("Oops.");        System.out.println(e.getMessage());        break;      }    }  }}PARSER_END(ABDLParser)< DEFAULT, IN_ADDRESSBOOK > SKIP :{  " "| "\r"| "\t"| "\n"}
 TOKEN : /*Key Words*/
 {
-	< ADDRESSBOOK : "addressbook" >
+	< ADDRESSBOOK : "addressbook" > : IN_ADDRESSBOOK
 | 	< PERSON : "person" >
 | 	< BIRTHDATE : "birthdate" >
 | 	< PHONE : "phone" >
@@ -36,10 +36,11 @@ TOKEN : /* CP */
 | 	< RCP : "}" >
 }
 
+ < IN_ADDRESSBOOK > TOKEN : {	< ADDRESSBOOK_NAME : "\"" ( (~["\"","\\","\n","\r"])|( "\\" (["n","t","\\","\""]) )|" " )* "\""> : DEFAULT
+ }
+
 TOKEN :
-{//  < ADDRESSBOOK_NAME : < PERSON_NAME > | < STRING >>
-  < PERSON_NAME : "\""(" "|< ALPHA >|"-")+"\"">
-| < STRING : "\"" ( (~["\"","\\","\n","\r"])|( "\\" (["n","t","\\","\""]) )|" " )* "\"">
+{  < PERSON_NAME : "\""(" "|< ALPHA >|"-")+"\"">
 }
 
 TOKEN : /* MONTHS */
@@ -68,7 +69,9 @@ TOKEN : /* CHARACTERS */
 {
 	<#ALPHA:  ["A"-"Z", "a"-"z"]>
 |	<#DIGIT:  ["0"-"9"]>
-}int AddressBook() :{}{  < ADDRESSBOOK > (<PERSON_NAME > | < STRING >) < LCP > (person())* < RCP > <EOF >  {    return 0;  }|   {    return 1;  }}
+}
+// PRODUCTIONS
+int AddressBook() :{}{  < ADDRESSBOOK > <ADDRESSBOOK_NAME > < LCP > (person())* < RCP > <EOF >  {    return 0;  }|   {    return 1;  }}
 
 void person() :
 {}

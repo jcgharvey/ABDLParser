@@ -41,9 +41,9 @@ public interface ABDLParserConstants {
   /** RegularExpression Id. */
   int RCP = 19;
   /** RegularExpression Id. */
-  int PERSON_NAME = 20;
+  int ADDRESSBOOK_NAME = 20;
   /** RegularExpression Id. */
-  int STRING = 21;
+  int PERSON_NAME = 21;
   /** RegularExpression Id. */
   int MONTH = 22;
   /** RegularExpression Id. */
@@ -59,6 +59,8 @@ public interface ABDLParserConstants {
 
   /** Lexical state. */
   int DEFAULT = 0;
+  /** Lexical state. */
+  int IN_ADDRESSBOOK = 1;
 
   /** Literal token values. */
   String[] tokenImage = {
@@ -82,8 +84,8 @@ public interface ABDLParserConstants {
     "\")\"",
     "\"{\"",
     "\"}\"",
+    "<ADDRESSBOOK_NAME>",
     "<PERSON_NAME>",
-    "<STRING>",
     "<MONTH>",
     "<DAY>",
     "<YEAR>",
