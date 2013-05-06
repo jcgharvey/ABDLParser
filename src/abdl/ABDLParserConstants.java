@@ -41,19 +41,21 @@ public interface ABDLParserConstants {
   /** RegularExpression Id. */
   int RCP = 19;
   /** RegularExpression Id. */
-  int QUOTE = 20;
+  int PERSON_NAME = 20;
   /** RegularExpression Id. */
-  int PERSONNAME = 21;
+  int STRING = 21;
   /** RegularExpression Id. */
-  int STRING = 22;
+  int MONTH = 22;
   /** RegularExpression Id. */
-  int MONTH = 23;
+  int DAY = 23;
   /** RegularExpression Id. */
-  int PLAINWORD = 24;
+  int YEAR = 24;
   /** RegularExpression Id. */
-  int ALPHA = 25;
+  int PLAINWORD = 25;
   /** RegularExpression Id. */
-  int DIGIT = 26;
+  int ALPHA = 26;
+  /** RegularExpression Id. */
+  int DIGIT = 27;
 
   /** Lexical state. */
   int DEFAULT = 0;
@@ -80,10 +82,11 @@ public interface ABDLParserConstants {
     "\")\"",
     "\"{\"",
     "\"}\"",
-    "\"\\\"\"",
-    "<PERSONNAME>",
+    "<PERSON_NAME>",
     "<STRING>",
     "<MONTH>",
+    "<DAY>",
+    "<YEAR>",
     "<PLAINWORD>",
     "<ALPHA>",
     "<DIGIT>",

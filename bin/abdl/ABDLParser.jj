@@ -28,7 +28,6 @@ TOKEN : /* P */
 {
 	< LP : "(" >
 | 	< RP : ")" >
-
 }
 
 TOKEN : /* CP */
@@ -37,21 +36,10 @@ TOKEN : /* CP */
 | 	< RCP : "}" >
 }
 
-TOKEN : /* QUOTE */
-{
-	< QUOTE : "\"" >
-}
-
 TOKEN :
-{
-< PERSONNAME : "\""(" "|< ALPHA >|"-")*"\"">
-}
-
-TOKEN : /* STRING */
-{
-  < STRING : "\"" ( (~["\"","\\","\n","\r"])
-  | ( "\\" (["n","t","\\","\""]) )
-  | " " )* "\"">
+{//  < ADDRESSBOOK_NAME : < PERSON_NAME > | < STRING >>
+  < PERSON_NAME : "\""(" "|< ALPHA >|"-")+"\"">
+| < STRING : "\"" ( (~["\"","\\","\n","\r"])|( "\\" (["n","t","\\","\""]) )|" " )* "\"">
 }
 
 TOKEN : /* MONTHS */
@@ -68,18 +56,27 @@ TOKEN : /* MONTHS */
 				"October" |
 				"November" |
 				"December" >
+		| < DAY: (< DIGIT >){1,2} >
+		| < YEAR : (< DIGIT >){4} >
 }
 
 TOKEN : /* PLAIN WORD */
 {	< PLAINWORD : (< ALPHA >)+ >
 }
+
 TOKEN : /* CHARACTERS */
 {
 	<#ALPHA:  ["A"-"Z", "a"-"z"]>
 |	<#DIGIT:  ["0"-"9"]>
-}int AddressBook() :{}{  < ADDRESSBOOK > <STRING > < LCP > (person())* < RCP > <EOF >  {    return 0;  }|   {    return 1;  }}
+}int AddressBook() :{}{  < ADDRESSBOOK > (<PERSON_NAME > | < STRING >) < LCP > (person())* < RCP > <EOF >  {    return 0;  }|   {    return 1;  }}
 
 void person() :
 {}
-{< PERSON > < PERSONNAME > <LCP > <RCP >
+{< PERSON > < PERSON_NAME > <LCP > (birthdate())* <RCP >
+}
+
+void birthdate() :
+{}
+{
+  < BIRTHDATE > <DAY > <MONTH > <YEAR >
 }

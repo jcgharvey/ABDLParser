@@ -30,12 +30,10 @@ public class ABDLParserTest extends TestCase {
 				//e.printStackTrace();
 				System.out.println("File not found: " + f.toString());
 				fail = true;
-				//fail();
 			} catch (ParseException e1) {
 				System.out.println("Incorrect Parse: " + f.toString());
 				e1.printStackTrace();
 				fail = true;
-				//fail();
 			}
 		}
 		if (fail) fail();
