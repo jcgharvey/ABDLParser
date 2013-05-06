@@ -23,43 +23,45 @@ public interface ABDLParserConstants {
   /** RegularExpression Id. */
   int ADDRESS = 10;
   /** RegularExpression Id. */
-  int EXTENSION = 11;
+  int ADDRESS_CONTENT = 11;
   /** RegularExpression Id. */
-  int TYPE = 12;
+  int ADDRESSBOOK_NAME = 12;
   /** RegularExpression Id. */
-  int MOBILE = 13;
+  int PERSON_NAME = 13;
   /** RegularExpression Id. */
-  int HOME = 14;
+  int MONTH = 14;
   /** RegularExpression Id. */
-  int WORK = 15;
+  int DAY = 15;
   /** RegularExpression Id. */
-  int OTHER = 16;
+  int YEAR = 16;
   /** RegularExpression Id. */
-  int PLUS = 17;
+  int PHONE_CONTENT = 17;
   /** RegularExpression Id. */
-  int LP = 18;
+  int EXTENSION = 18;
   /** RegularExpression Id. */
-  int RP = 19;
+  int PLUS = 19;
   /** RegularExpression Id. */
-  int LCP = 20;
+  int TYPE = 20;
   /** RegularExpression Id. */
-  int RCP = 21;
+  int MOBILE = 21;
   /** RegularExpression Id. */
-  int ADDRESSBOOK_NAME = 22;
+  int HOME = 22;
   /** RegularExpression Id. */
-  int PERSON_NAME = 23;
+  int WORK = 23;
   /** RegularExpression Id. */
-  int MONTH = 24;
+  int OTHER = 24;
   /** RegularExpression Id. */
-  int DAY = 25;
+  int ALPHA = 25;
   /** RegularExpression Id. */
-  int YEAR = 26;
+  int DIGIT = 26;
   /** RegularExpression Id. */
-  int PLAINWORD = 27;
+  int LP = 27;
   /** RegularExpression Id. */
-  int ALPHA = 28;
+  int RP = 28;
   /** RegularExpression Id. */
-  int DIGIT = 29;
+  int LCP = 29;
+  /** RegularExpression Id. */
+  int RCP = 30;
 
   /** Lexical state. */
   int DEFAULT = 0;
@@ -69,6 +71,10 @@ public interface ABDLParserConstants {
   int IN_PERSON = 2;
   /** Lexical state. */
   int IN_BIRTHDATE = 3;
+  /** Lexical state. */
+  int IN_ADDRESS = 4;
+  /** Lexical state. */
+  int IN_PHONE = 5;
 
   /** Literal token values. */
   String[] tokenImage = {
@@ -83,25 +89,26 @@ public interface ABDLParserConstants {
     "\"phone\"",
     "\"email\"",
     "\"address\"",
-    "\"ext\"",
-    "<TYPE>",
-    "\"mobile\"",
-    "\"home\"",
-    "\"work\"",
-    "\"other\"",
-    "\"+\"",
-    "\"(\"",
-    "\")\"",
-    "\"{\"",
-    "\"}\"",
+    "<ADDRESS_CONTENT>",
     "<ADDRESSBOOK_NAME>",
     "<PERSON_NAME>",
     "<MONTH>",
     "<DAY>",
     "<YEAR>",
-    "<PLAINWORD>",
+    "<PHONE_CONTENT>",
+    "\"ext\"",
+    "\"+\"",
+    "<TYPE>",
+    "\"mobile\"",
+    "\"home\"",
+    "\"work\"",
+    "\"other\"",
     "<ALPHA>",
     "<DIGIT>",
+    "\"(\"",
+    "\")\"",
+    "\"{\"",
+    "\"}\"",
   };
 
 }

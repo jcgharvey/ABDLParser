@@ -36,7 +36,7 @@ public class ABDLParserTest extends TestCase {
 				fail = true;
 			}
 		}
-		if (fail) fail();
+		if (fail){ fail(); }
 	}
 
 	@Test
