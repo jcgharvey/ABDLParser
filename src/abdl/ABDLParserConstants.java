@@ -25,42 +25,50 @@ public interface ABDLParserConstants {
   /** RegularExpression Id. */
   int EXTENSION = 11;
   /** RegularExpression Id. */
-  int MOBILE = 12;
+  int TYPE = 12;
   /** RegularExpression Id. */
-  int HOME = 13;
+  int MOBILE = 13;
   /** RegularExpression Id. */
-  int WORK = 14;
+  int HOME = 14;
   /** RegularExpression Id. */
-  int OTHER = 15;
+  int WORK = 15;
   /** RegularExpression Id. */
-  int LP = 16;
+  int OTHER = 16;
   /** RegularExpression Id. */
-  int RP = 17;
+  int PLUS = 17;
   /** RegularExpression Id. */
-  int LCP = 18;
+  int LP = 18;
   /** RegularExpression Id. */
-  int RCP = 19;
+  int RP = 19;
   /** RegularExpression Id. */
-  int ADDRESSBOOK_NAME = 20;
+  int LCP = 20;
   /** RegularExpression Id. */
-  int PERSON_NAME = 21;
+  int RCP = 21;
   /** RegularExpression Id. */
-  int MONTH = 22;
+  int ADDRESSBOOK_NAME = 22;
   /** RegularExpression Id. */
-  int DAY = 23;
+  int PERSON_NAME = 23;
   /** RegularExpression Id. */
-  int YEAR = 24;
+  int MONTH = 24;
   /** RegularExpression Id. */
-  int PLAINWORD = 25;
+  int DAY = 25;
   /** RegularExpression Id. */
-  int ALPHA = 26;
+  int YEAR = 26;
   /** RegularExpression Id. */
-  int DIGIT = 27;
+  int PLAINWORD = 27;
+  /** RegularExpression Id. */
+  int ALPHA = 28;
+  /** RegularExpression Id. */
+  int DIGIT = 29;
 
   /** Lexical state. */
   int DEFAULT = 0;
   /** Lexical state. */
   int IN_ADDRESSBOOK = 1;
+  /** Lexical state. */
+  int IN_PERSON = 2;
+  /** Lexical state. */
+  int IN_BIRTHDATE = 3;
 
   /** Literal token values. */
   String[] tokenImage = {
@@ -76,10 +84,12 @@ public interface ABDLParserConstants {
     "\"email\"",
     "\"address\"",
     "\"ext\"",
+    "<TYPE>",
     "\"mobile\"",
     "\"home\"",
     "\"work\"",
     "\"other\"",
+    "\"+\"",
     "\"(\"",
     "\")\"",
     "\"{\"",

@@ -76,15 +76,31 @@ public class ABDLParser implements ABDLParserConstants {
     while (true) {
       switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
       case BIRTHDATE:
+      case PHONE:
         ;
         break;
       default:
         jj_la1[2] = jj_gen;
         break label_2;
       }
-      birthdate();
+      person_content();
     }
     jj_consume_token(RCP);
+  }
+
+  final public void person_content() throws ParseException {
+    switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
+    case PHONE:
+      phone();
+      break;
+    case BIRTHDATE:
+      birthdate();
+      break;
+    default:
+      jj_la1[3] = jj_gen;
+      jj_consume_token(-1);
+      throw new ParseException();
+    }
   }
 
   final public void birthdate() throws ParseException {
@@ -92,6 +108,51 @@ public class ABDLParser implements ABDLParserConstants {
     jj_consume_token(DAY);
     jj_consume_token(MONTH);
     jj_consume_token(YEAR);
+  }
+
+  final public void phone() throws ParseException {
+    jj_consume_token(PHONE);
+    jj_consume_token(TYPE);
+    switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
+    case PLUS:
+      jj_consume_token(PLUS);
+      break;
+    default:
+      jj_la1[4] = jj_gen;
+      ;
+    }
+    label_3:
+    while (true) {
+      jj_consume_token(DIGIT);
+      switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
+      case DIGIT:
+        ;
+        break;
+      default:
+        jj_la1[5] = jj_gen;
+        break label_3;
+      }
+    }
+    switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
+    case EXTENSION:
+      jj_consume_token(EXTENSION);
+      label_4:
+      while (true) {
+        jj_consume_token(DIGIT);
+        switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
+        case DIGIT:
+          ;
+          break;
+        default:
+          jj_la1[6] = jj_gen;
+          break label_4;
+        }
+      }
+      break;
+    default:
+      jj_la1[7] = jj_gen;
+      ;
+    }
   }
 
   /** Generated Token Manager. */
@@ -103,13 +164,13 @@ public class ABDLParser implements ABDLParserConstants {
   public Token jj_nt;
   private int jj_ntk;
   private int jj_gen;
-  final private int[] jj_la1 = new int[3];
+  final private int[] jj_la1 = new int[8];
   static private int[] jj_la1_0;
   static {
       jj_la1_init_0();
    }
    private static void jj_la1_init_0() {
-      jj_la1_0 = new int[] {0x40,0x20,0x80,};
+      jj_la1_0 = new int[] {0x40,0x20,0x180,0x180,0x20000,0x20000000,0x20000000,0x800,};
    }
 
   /** Constructor with InputStream. */
@@ -123,7 +184,7 @@ public class ABDLParser implements ABDLParserConstants {
     token = new Token();
     jj_ntk = -1;
     jj_gen = 0;
-    for (int i = 0; i < 3; i++) jj_la1[i] = -1;
+    for (int i = 0; i < 8; i++) jj_la1[i] = -1;
   }
 
   /** Reinitialise. */
@@ -137,7 +198,7 @@ public class ABDLParser implements ABDLParserConstants {
     token = new Token();
     jj_ntk = -1;
     jj_gen = 0;
-    for (int i = 0; i < 3; i++) jj_la1[i] = -1;
+    for (int i = 0; i < 8; i++) jj_la1[i] = -1;
   }
 
   /** Constructor. */
@@ -147,7 +208,7 @@ public class ABDLParser implements ABDLParserConstants {
     token = new Token();
     jj_ntk = -1;
     jj_gen = 0;
-    for (int i = 0; i < 3; i++) jj_la1[i] = -1;
+    for (int i = 0; i < 8; i++) jj_la1[i] = -1;
   }
 
   /** Reinitialise. */
@@ -157,7 +218,7 @@ public class ABDLParser implements ABDLParserConstants {
     token = new Token();
     jj_ntk = -1;
     jj_gen = 0;
-    for (int i = 0; i < 3; i++) jj_la1[i] = -1;
+    for (int i = 0; i < 8; i++) jj_la1[i] = -1;
   }
 
   /** Constructor with generated Token Manager. */
@@ -166,7 +227,7 @@ public class ABDLParser implements ABDLParserConstants {
     token = new Token();
     jj_ntk = -1;
     jj_gen = 0;
-    for (int i = 0; i < 3; i++) jj_la1[i] = -1;
+    for (int i = 0; i < 8; i++) jj_la1[i] = -1;
   }
 
   /** Reinitialise. */
@@ -175,7 +236,7 @@ public class ABDLParser implements ABDLParserConstants {
     token = new Token();
     jj_ntk = -1;
     jj_gen = 0;
-    for (int i = 0; i < 3; i++) jj_la1[i] = -1;
+    for (int i = 0; i < 8; i++) jj_la1[i] = -1;
   }
 
   private Token jj_consume_token(int kind) throws ParseException {
@@ -226,12 +287,12 @@ public class ABDLParser implements ABDLParserConstants {
   /** Generate ParseException. */
   public ParseException generateParseException() {
     jj_expentries.clear();
-    boolean[] la1tokens = new boolean[28];
+    boolean[] la1tokens = new boolean[30];
     if (jj_kind >= 0) {
       la1tokens[jj_kind] = true;
       jj_kind = -1;
     }
-    for (int i = 0; i < 3; i++) {
+    for (int i = 0; i < 8; i++) {
       if (jj_la1[i] == jj_gen) {
         for (int j = 0; j < 32; j++) {
           if ((jj_la1_0[i] & (1<<j)) != 0) {
@@ -240,7 +301,7 @@ public class ABDLParser implements ABDLParserConstants {
         }
       }
     }
-    for (int i = 0; i < 28; i++) {
+    for (int i = 0; i < 30; i++) {
       if (la1tokens[i]) {
         jj_expentry = new int[1];
         jj_expentry[0] = i;

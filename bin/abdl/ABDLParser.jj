@@ -4,24 +4,29 @@
 
 public class ABDLParser{
   public static void main(String args []) throws ParseException  {    ABDLParser parser = new ABDLParser(System.in);    while (true)    {      System.out.println("Reading from standard input...");      System.out.print("Enter an expression like \"1+(2+3)*4;\" :");      try      {        switch (parser.AddressBook())        {          case 0 :           System.out.println("OK.");          break;          case 1 :           System.out.println("Goodbye.");          break;          default :           break;        }      }      catch (Exception e)      {        System.out.println("NOK.");        System.out.println(e.getMessage());        break;
-      }      catch (Error e)      {        System.out.println("Oops.");        System.out.println(e.getMessage());        break;      }    }  }}PARSER_END(ABDLParser)< DEFAULT, IN_ADDRESSBOOK > SKIP :{  " "| "\r"| "\t"| "\n"}
+      }      catch (Error e)      {        System.out.println("Oops.");        System.out.println(e.getMessage());        break;      }    }  }}PARSER_END(ABDLParser)< DEFAULT, IN_ADDRESSBOOK, IN_PERSON, IN_BIRTHDATE > SKIP :{  " "| "\r"| "\t"| "\n"}
 TOKEN : /*Key Words*/
 {
 	< ADDRESSBOOK : "addressbook" > : IN_ADDRESSBOOK
-| 	< PERSON : "person" >
-| 	< BIRTHDATE : "birthdate" >
+| 	< PERSON : "person" > : IN_PERSON
+| 	< BIRTHDATE : "birthdate" > : IN_BIRTHDATE
 | 	< PHONE : "phone" >
 | 	< EMAIL : "email" >
 | 	< ADDRESS : "address" >
-| 	< EXTENSION : "ext" >
+|   < EXTENSION : "ext" >
 }
 
 TOKEN : /* TYPES */
 {
-  	< MOBILE : "mobile">
+  < TYPE : <LP >(< MOBILE >|< HOME >|< WORK >|< OTHER >) <RP >>
+ | 	< MOBILE : "mobile">
  | 	< HOME : "home" >
  | 	< WORK : "work" >
  | 	< OTHER : "other" >
+}
+
+TOKEN :
+{	< PLUS : "+">
 }
 
 TOKEN : /* P */
@@ -39,13 +44,13 @@ TOKEN : /* CP */
  < IN_ADDRESSBOOK > TOKEN : {	< ADDRESSBOOK_NAME : "\"" ( (~["\"","\\","\n","\r"])|( "\\" (["n","t","\\","\""]) )|" " )* "\""> : DEFAULT
  }
 
-TOKEN :
-{  < PERSON_NAME : "\""(" "|< ALPHA >|"-")+"\"">
+< IN_PERSON > TOKEN :
+{  < PERSON_NAME : "\""(" "|< ALPHA >|"-")+"\""> : DEFAULT
 }
 
-TOKEN : /* MONTHS */
+< IN_BIRTHDATE > TOKEN : /* MONTHS */
 {
-	< MONTH : 	"January" |
+ 	< MONTH : 	"January" |
 				"February" |
 				"March" |
 				"April" |
@@ -58,8 +63,9 @@ TOKEN : /* MONTHS */
 				"November" |
 				"December" >
 		| < DAY: (< DIGIT >){1,2} >
-		| < YEAR : (< DIGIT >){4} >
+		| < YEAR : (< DIGIT >){4} > : DEFAULT
 }
+
 
 TOKEN : /* PLAIN WORD */
 {	< PLAINWORD : (< ALPHA >)+ >
@@ -67,19 +73,30 @@ TOKEN : /* PLAIN WORD */
 
 TOKEN : /* CHARACTERS */
 {
-	<#ALPHA:  ["A"-"Z", "a"-"z"]>
-|	<#DIGIT:  ["0"-"9"]>
+	<ALPHA:  ["A"-"Z", "a"-"z"]>
+|	<DIGIT:  ["0"-"9"]>
 }
 // PRODUCTIONS
 int AddressBook() :{}{  < ADDRESSBOOK > <ADDRESSBOOK_NAME > < LCP > (person())* < RCP > <EOF >  {    return 0;  }|   {    return 1;  }}
 
 void person() :
 {}
-{< PERSON > < PERSON_NAME > <LCP > (birthdate())* <RCP >
+{< PERSON > < PERSON_NAME > <LCP > (person_content())* <RCP >
+}
+
+void person_content() :
+{}
+{	phone()
+|	birthdate()
 }
 
 void birthdate() :
 {}
 {
-  < BIRTHDATE > <DAY > <MONTH > <YEAR >
+  < BIRTHDATE > < DAY > <MONTH > <YEAR >
+}
+void phone() :
+{}
+{
+  < PHONE > < TYPE >(<PLUS >)? (< DIGIT >)+ (< EXTENSION > (< DIGIT >)+)?
 }
