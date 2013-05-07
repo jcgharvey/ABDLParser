@@ -41,27 +41,29 @@ public interface ABDLParserConstants {
   /** RegularExpression Id. */
   int PLUS = 19;
   /** RegularExpression Id. */
-  int TYPE = 20;
+  int EMAIL_CONTENT = 20;
   /** RegularExpression Id. */
-  int MOBILE = 21;
+  int TYPE = 21;
   /** RegularExpression Id. */
-  int HOME = 22;
+  int MOBILE = 22;
   /** RegularExpression Id. */
-  int WORK = 23;
+  int HOME = 23;
   /** RegularExpression Id. */
-  int OTHER = 24;
+  int WORK = 24;
   /** RegularExpression Id. */
-  int ALPHA = 25;
+  int OTHER = 25;
   /** RegularExpression Id. */
-  int DIGIT = 26;
+  int ALPHA = 26;
   /** RegularExpression Id. */
-  int LP = 27;
+  int DIGIT = 27;
   /** RegularExpression Id. */
-  int RP = 28;
+  int LP = 28;
   /** RegularExpression Id. */
-  int LCP = 29;
+  int RP = 29;
   /** RegularExpression Id. */
-  int RCP = 30;
+  int LCP = 30;
+  /** RegularExpression Id. */
+  int RCP = 31;
 
   /** Lexical state. */
   int DEFAULT = 0;
@@ -74,7 +76,9 @@ public interface ABDLParserConstants {
   /** Lexical state. */
   int IN_ADDRESS = 4;
   /** Lexical state. */
-  int IN_PHONE = 5;
+  int IN_EMAIL = 5;
+  /** Lexical state. */
+  int IN_PHONE = 6;
 
   /** Literal token values. */
   String[] tokenImage = {
@@ -98,6 +102,7 @@ public interface ABDLParserConstants {
     "<PHONE_CONTENT>",
     "\"ext\"",
     "\"+\"",
+    "<EMAIL_CONTENT>",
     "<TYPE>",
     "\"mobile\"",
     "\"home\"",

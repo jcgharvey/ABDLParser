@@ -38,8 +38,19 @@ public class ABDLParser implements ABDLParserConstants {
     }
   }
 
+  public int AddressBook() throws ParseException
+  {
+        try
+        {
+                return run();
+        } catch(TokenMgrError e)
+        {
+                throw new ParseException();
+        }
+  }
+
 // PRODUCTIONS
-  final public int AddressBook() throws ParseException {
+  final public int run() throws ParseException {
     switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
     case ADDRESSBOOK:
       jj_consume_token(ADDRESSBOOK);
@@ -77,6 +88,7 @@ public class ABDLParser implements ABDLParserConstants {
       switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
       case BIRTHDATE:
       case PHONE:
+      case EMAIL:
       case ADDRESS:
         ;
         break;
@@ -99,6 +111,9 @@ public class ABDLParser implements ABDLParserConstants {
       break;
     case ADDRESS:
       address();
+      break;
+    case EMAIL:
+      email();
       break;
     default:
       jj_la1[3] = jj_gen;
@@ -124,6 +139,11 @@ public class ABDLParser implements ABDLParserConstants {
     jj_consume_token(ADDRESS_CONTENT);
   }
 
+  final public void email() throws ParseException {
+    jj_consume_token(EMAIL);
+    jj_consume_token(EMAIL_CONTENT);
+  }
+
   /** Generated Token Manager. */
   public ABDLParserTokenManager token_source;
   SimpleCharStream jj_input_stream;
@@ -139,7 +159,7 @@ public class ABDLParser implements ABDLParserConstants {
       jj_la1_init_0();
    }
    private static void jj_la1_init_0() {
-      jj_la1_0 = new int[] {0x40,0x20,0x580,0x580,};
+      jj_la1_0 = new int[] {0x40,0x20,0x780,0x780,};
    }
 
   /** Constructor with InputStream. */
@@ -256,7 +276,7 @@ public class ABDLParser implements ABDLParserConstants {
   /** Generate ParseException. */
   public ParseException generateParseException() {
     jj_expentries.clear();
-    boolean[] la1tokens = new boolean[31];
+    boolean[] la1tokens = new boolean[32];
     if (jj_kind >= 0) {
       la1tokens[jj_kind] = true;
       jj_kind = -1;
@@ -270,7 +290,7 @@ public class ABDLParser implements ABDLParserConstants {
         }
       }
     }
-    for (int i = 0; i < 31; i++) {
+    for (int i = 0; i < 32; i++) {
       if (la1tokens[i]) {
         jj_expentry = new int[1];
         jj_expentry[0] = i;

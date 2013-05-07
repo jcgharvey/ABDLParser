@@ -4,14 +4,19 @@
 
 public class ABDLParser{
   public static void main(String args []) throws ParseException  {    ABDLParser parser = new ABDLParser(System.in);    while (true)    {      System.out.println("Reading from standard input...");      System.out.print("Enter an expression like \"1+(2+3)*4;\" :");      try      {        switch (parser.AddressBook())        {          case 0 :           System.out.println("OK.");          break;          case 1 :           System.out.println("Goodbye.");          break;          default :           break;        }      }      catch (Exception e)      {        System.out.println("NOK.");        System.out.println(e.getMessage());        break;
-      }      catch (Error e)      {        System.out.println("Oops.");        System.out.println(e.getMessage());        break;      }    }  }}PARSER_END(ABDLParser)< DEFAULT, IN_ADDRESSBOOK, IN_PERSON, IN_BIRTHDATE, IN_ADDRESS > SKIP :{  " "| "\r"| "\t"| "\n"}
+      }      catch (Error e)      {        System.out.println("Oops.");        System.out.println(e.getMessage());        break;      }    }  }
+
+  public int AddressBook() throws ParseException  {	try	{		return run();
+	} catch(TokenMgrError e)	{
+	 	throw new ParseException();	}
+  }}PARSER_END(ABDLParser)< DEFAULT, IN_ADDRESSBOOK, IN_PERSON, IN_BIRTHDATE, IN_ADDRESS, IN_EMAIL > SKIP :{  " "| "\r"| "\t"| "\n"}
 TOKEN : /*Key Words*/
 {
 	< ADDRESSBOOK : "addressbook" > : IN_ADDRESSBOOK
 | 	< PERSON : "person" > : IN_PERSON
 | 	< BIRTHDATE : "birthdate" > : IN_BIRTHDATE
 | 	< PHONE : "phone" > : IN_PHONE
-| 	< EMAIL : "email" >
+| 	< EMAIL : "email" > : IN_EMAIL
 | 	< ADDRESS : "address" > : IN_ADDRESS
 
 }
@@ -52,6 +57,10 @@ TOKEN : /*Key Words*/
 | 	< PLUS : "+">
 }
 
+< IN_EMAIL > TOKEN :
+{	< EMAIL_CONTENT : (< ALPHA >|< DIGIT >|"."|"_")+"@"(< ALPHA >|"."|"_")+> : DEFAULT
+}
+
 < DEFAULT > TOKEN : /* TYPES */
 {
   < TYPE : <LP >(< MOBILE >|< HOME >|< WORK >|< OTHER >) <RP >>
@@ -61,7 +70,7 @@ TOKEN : /*Key Words*/
  | 	< OTHER : "other" >
 }
 
-< DEFAULT, IN_PHONE, IN_ADDRESS > TOKEN : /* CHARACTERS */
+< DEFAULT, IN_PHONE, IN_ADDRESS, IN_EMAIL > TOKEN : /* CHARACTERS */
 {
 	<ALPHA:  ["A"-"Z", "a"-"z"]>
 |	<DIGIT:  ["0"-"9"]>
@@ -81,7 +90,7 @@ TOKEN : /* CP */
 
 
 // PRODUCTIONS
-int AddressBook() :{}{  < ADDRESSBOOK > <ADDRESSBOOK_NAME > < LCP > (person())* < RCP > <EOF >  {    return 0;  }|   {    return 1;  }}
+int run() :{}{  < ADDRESSBOOK > <ADDRESSBOOK_NAME > < LCP > (person())* < RCP > <EOF >  {    return 0;  }|   {    return 1;  }}
 
 void person() :
 {}
@@ -93,6 +102,7 @@ void person_content() :
 {	phone()
 |	birthdate()
 | 	address()
+| 	email()
 }
 
 void birthdate() :
@@ -110,3 +120,6 @@ void address() :
 {
   < ADDRESS > < ADDRESS_CONTENT >
 }
+void email() :{}
+{
+  < EMAIL > <EMAIL_CONTENT >}
