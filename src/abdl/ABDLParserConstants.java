@@ -43,27 +43,29 @@ public interface ABDLParserConstants {
   /** RegularExpression Id. */
   int EMAIL_CONTENT = 20;
   /** RegularExpression Id. */
-  int TYPE = 21;
+  int EMAIL_ITEMS = 21;
   /** RegularExpression Id. */
-  int MOBILE = 22;
+  int TYPE = 22;
   /** RegularExpression Id. */
-  int HOME = 23;
+  int MOBILE = 23;
   /** RegularExpression Id. */
-  int WORK = 24;
+  int HOME = 24;
   /** RegularExpression Id. */
-  int OTHER = 25;
+  int WORK = 25;
   /** RegularExpression Id. */
-  int ALPHA = 26;
+  int OTHER = 26;
   /** RegularExpression Id. */
-  int DIGIT = 27;
+  int ALPHA = 27;
   /** RegularExpression Id. */
-  int LP = 28;
+  int DIGIT = 28;
   /** RegularExpression Id. */
-  int RP = 29;
+  int LP = 29;
   /** RegularExpression Id. */
-  int LCP = 30;
+  int RP = 30;
   /** RegularExpression Id. */
-  int RCP = 31;
+  int LCP = 31;
+  /** RegularExpression Id. */
+  int RCP = 32;
 
   /** Lexical state. */
   int DEFAULT = 0;
@@ -103,6 +105,7 @@ public interface ABDLParserConstants {
     "\"ext\"",
     "\"+\"",
     "<EMAIL_CONTENT>",
+    "<EMAIL_ITEMS>",
     "<TYPE>",
     "\"mobile\"",
     "\"home\"",

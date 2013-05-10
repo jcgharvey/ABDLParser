@@ -14,8 +14,14 @@ public class ABDLParser implements ABDLParserConstants {
 
   public void AddressBook() throws ParseException
   {
-//    try {      run();
-//    }//    catch (TokenMgrError e)//    {//      throw new ParseException();//    }  }
+    try {
+      run();
+    }
+    catch (TokenMgrError e)
+    {
+      throw new ParseException();
+    }
+  }
 
 // PRODUCTIONS  final public void run() throws ParseException {
     jj_consume_token(ADDRESSBOOK);
@@ -119,11 +125,16 @@ public class ABDLParser implements ABDLParserConstants {
   private int jj_gen;
   final private int[] jj_la1 = new int[3];
   static private int[] jj_la1_0;
+  static private int[] jj_la1_1;
   static {
       jj_la1_init_0();
+      jj_la1_init_1();
    }
    private static void jj_la1_init_0() {
       jj_la1_0 = new int[] {0x40,0x780,0x780,};
+   }
+   private static void jj_la1_init_1() {
+      jj_la1_1 = new int[] {0x0,0x0,0x0,};
    }
 
   /** Constructor with InputStream. */
@@ -240,7 +251,7 @@ public class ABDLParser implements ABDLParserConstants {
   /** Generate ParseException. */
   public ParseException generateParseException() {
     jj_expentries.clear();
-    boolean[] la1tokens = new boolean[32];
+    boolean[] la1tokens = new boolean[33];
     if (jj_kind >= 0) {
       la1tokens[jj_kind] = true;
       jj_kind = -1;
@@ -251,10 +262,13 @@ public class ABDLParser implements ABDLParserConstants {
           if ((jj_la1_0[i] & (1<<j)) != 0) {
             la1tokens[j] = true;
           }
+          if ((jj_la1_1[i] & (1<<j)) != 0) {
+            la1tokens[32+j] = true;
+          }
         }
       }
     }
-    for (int i = 0; i < 32; i++) {
+    for (int i = 0; i < 33; i++) {
       if (la1tokens[i]) {
         jj_expentry = new int[1];
         jj_expentry[0] = i;
