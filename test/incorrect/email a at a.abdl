@@ -1,5 +1,5 @@
 addressbook "name"{
 	person "name" {
-		phone(home) 1ext1
+		email a@a
 	}
 }
